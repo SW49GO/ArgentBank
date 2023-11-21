@@ -31,10 +31,45 @@ const userDatasSlice = createSlice({
     }
 })
 
+const isVisibleComponent = createSlice({
+    name: 'isVisible',
+    initialState:{
+    editname : false,
+    summary :true,
+    checking :false,
+    saving : false,
+    credit :false
+    },
+    reducers : {
+      setEditNameVisible : (state, action)=>{
+        state.editname = action.payload
+      },
+      setSummaryVisible : (state, action)=>{
+        state.summary = action.payload
+      },
+      setChecking: (state,action)=>{
+        state.checking = action.payload
+      },
+      setSaving : (state,action)=>{
+        state.saving = action.payload
+      },
+      setCredit :(state,action)=>{
+        state.credit = action.payload
+      }, 
+      setAllClosed : (state)=>{
+        state.checking = false;
+        state.saving = false;
+        state.credit = false
+      }
+    }
+  })
+
 export const {setInfosUser, setUserConfigConnect, setIsAuthUser} = userDatasSlice.actions
+export const {setEditNameVisible, setSummaryVisible, setChecking, setSaving, setCredit, setAllClosed} = isVisibleComponent.actions
 
 export const store = configureStore({
     reducer : {
-        userDatasSlice : userDatasSlice.reducer
+        userDatasSlice : userDatasSlice.reducer,
+        isVisibleComponent :isVisibleComponent.reducer
     }
 })

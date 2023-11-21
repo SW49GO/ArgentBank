@@ -10,6 +10,7 @@ function Header(){
   const dispatch = useDispatch()
   // Verify si l'utilisateur est déjà connecté pour changer l'icone
   const isAuthUser = useSelector(selectAuth)
+//   const isAuthUser = true
   console.log('isAuthUser:', isAuthUser)
   const firstName = useSelector(selectFirstname)
 
