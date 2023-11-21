@@ -1,6 +1,11 @@
 import Header from "../components/Header"
+import { selectAuth } from "../features/selectors"
 import '../styles/main.css'
+import { useSelector } from "react-redux"
+
 function Login(){
+
+    console.log(useSelector(selectAuth))
     return(
         <>
         <Header/>
