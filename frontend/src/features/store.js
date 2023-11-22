@@ -56,10 +56,10 @@ const isVisibleComponent = createSlice({
       setCredit :(state,action)=>{
         state.credit = action.payload
       }, 
-      setAllClosed : (state)=>{
-        state.checking = false;
-        state.saving = false;
-        state.credit = false
+      setAllClosed : (state,action)=>{
+        state.checking = action.payload
+        state.saving = action.payload
+        state.credit = action.payload
       }
     }
   })

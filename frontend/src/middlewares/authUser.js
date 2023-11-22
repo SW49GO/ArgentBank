@@ -9,6 +9,7 @@ export const authUser = createAsyncThunk('authUser', async (_, { dispatch, getSt
   const isUserAuth = selectAuth(getState())
   const token = sessionStorage.getItem('JWT')
   try {
+    console.log('AUTH en Cours')
     const response = await fetchUserData({ token })
     if(response && response!=='Failed to fetch' && isUserAuth===false){
     // si récupération de l'email par l'envoi du token

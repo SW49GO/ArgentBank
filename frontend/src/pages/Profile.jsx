@@ -16,8 +16,6 @@ import Error from '../pages/Error'
 import '../styles/main.css'
 
 
-
-
 /**
  * Function to display summary account when user authentified
  * @returns {JSX.Element}
@@ -35,14 +33,14 @@ function Profile(){
     const isCredit = useSelector(selectCredit)
     const authUserOk = useSelector(selectAuth)
 
-    const {data, error, isLoading } = useQuery('authUser', async () => {
-        const response =  await dispatch(authUser())
+    const { data, error, isLoading } = useQuery('authUser', async () => {
+        const response = await dispatch(authUser())
         if (response.payload === false) {
             dispatch(setIsAuthUser(false))
             navigate('/login')
         }
         return response.payload
-  })
+    })
 
   if (isLoading) {
     return <div>Données en cours de chargement...</div>
