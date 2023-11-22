@@ -1,8 +1,8 @@
 import {BrowserRouter , Routes, Route} from 'react-router-dom'
+import Profile from '../pages/Profile'
 import Login from '../pages/Login'
 import Error from '../pages/Error'
 import Home from '../pages/Home'
-import Profile from '../pages/Profile'
 import Footer from './Footer'
 
 /**
@@ -10,11 +10,6 @@ import Footer from './Footer'
  * @returns {JSX.Element}
  */
 function Router(){
-
-    /**
-     * Function 
-     * @returns {JSX.Element}
-     */
 
     return ( <BrowserRouter>
                 <Routes>

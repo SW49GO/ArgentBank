@@ -16,21 +16,21 @@ import '../styles/main.css'
  * @returns {JSX.Element}
  */
 function Login(){
-    // register :  enregistrent les champs de saisie et les associent à l'état interne de useForm()
-    // handleSubmit : gère la soumission du formulaire en prenant en charge la validation des champs enregistrés avec register
+    // register: register input fields and associate them with the internal state of useForm()
+    // handleSubmit: handles form submission by supporting validation of fields saved with register
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const rememberUser = localStorage.getItem('rememberMe')
-    // Création d'un instance du client de requête, interface qui permet d'interagir avec le système de cache
+    // Creation of an instance of the query client, interface which allows you to interact with the cache system
     const queryClient = useQueryClient()
-    // State pour valider le formulaire et permettre l'envoi de la requête
+    // State to validate the form and allow the request to be sent
     const [isFormSubmit, setFormSubmit] = useState(false)
     const email = useSelector(selectEmail)
     const password = useSelector(selectPassword)
 
-    // isError : booléen qui indique si une erreur s'est produite lors de la récupération des données
-    // error : objet qui contient des détails sur l'erreur qui s'est produite
+    // isError : boolean that indicates whether an error occurred while retrieving data
+    // error : object that contains details about the error that occurred
     const { error, isError} = useQuery('login', () => fetchData({email, password}),
     // Disabled as long as the isFormSubmit is empty
     { enabled:isFormSubmit,
@@ -61,7 +61,8 @@ function Login(){
          if(verifyData){
              dispatch(setUserConfigConnect({email:username, password:password, rememberMe:rememberMe}))
              setFormSubmit(true)
-             // Invalide le résultat dans le cache de la requête 'login' et signale à React Query qu'il faut rafraichir la requête 'login' au prochain useQuery qui a la queryKey correspondante
+            // Invalidates the result in the cache of the 'login' query 
+            // and signals React Query to refresh the 'login' query at the next useQuery that has the corresponding queryKey
              queryClient.invalidateQueries('login')
          }
      }
@@ -73,7 +74,7 @@ function Login(){
         <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-            {/* Appel de la fonction OnSubmit en envoyant en argument l'objet data (champs formulaire) */}
+            {/*Calling the OnSubmit function by sending the data object (form fields) as an argument*/}
                 <form onSubmit={handleSubmit(OnSubmit)}>
                     <div className="input-wrapper">
                     <label htmlFor="username">Username</label>
@@ -96,7 +97,7 @@ function Login(){
                     <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <button className="sign-in-button">Sign In</button> 
-                    {/* Gestion des erreurs de requête */}
+                    {/* Handling query errors */}
                     {(error && error.message==='400') && <p>Les identifiants sont icorrectes</p>}
                     {(isError && error.message==='Failed to fetch') && <p>Erreur serveur inattendue</p>}
                 </form>

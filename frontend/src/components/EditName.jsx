@@ -25,20 +25,21 @@ function EditName(){
     const [isValideForm, setIsValideForm] = useState(false)
     const verifyAuthUser = useSelector(selectAuth)
 
+    // Request sent if form and user is valid
     const {error, isError} = useQuery('updateIdentity', () => { 
         fetchUpdateData({ firstname:firstname, lastname:lastname, token: token })
         },
-        // false par defaut
         { enabled:isValideForm && verifyAuthUser,
         retry:1,
         onSuccess: () => {dispatch(setEditNameVisible(false)); dispatch(setInfosUser({ firstname:firstname, lastname:lastname}))},
-        onError: (err) => {console.error(err); setIsValideForm(false)}
+        onError: () => {setIsValideForm(false)}
     })
+
+    // Function to check the validity of fields and update Redux state
     const ChangeIdentity = (data)=>{
     const {firstname, lastname} = data
     const verifData = useValidationForm({firstname:firstname, lastname:lastname})
         if(verifData===true){
-            console.log('VALIDATE')
             dispatch(setInfosUser({firstname:firstname, lastname:lastname}))
             setIsValideForm(true)
             queryClient.invalidateQueries('updateIdentity')
@@ -47,6 +48,7 @@ function EditName(){
 
 if(isVisible===true && !error && !isError){
         return(
+            <>
             <div className="edit-container">
                 <form onSubmit={handleSubmit(ChangeIdentity)}>
                     <div className='edit-container-identity'>
@@ -67,6 +69,7 @@ if(isVisible===true && !error && !isError){
                     </div>
                 </form>
             </div>
+        </>
         )
     }
  }

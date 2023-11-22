@@ -1,14 +1,17 @@
-import { useDispatch } from "react-redux"
 import { setSummaryVisible, setChecking, setSaving, setCredit } from "../features/store"
+import HeaderCreditCard from "./headers/HeaderCreditCard"
 import HeaderChecking from "./headers/HeaderChecking"
 import HeaderSaving from "./headers/HeaderSaving"
-import HeaderCreditCard from "./headers/HeaderCreditCard"
+import { useDispatch } from "react-redux"
 
+/**
+ * Function component to display the summary of all 3 accounts transaction
+ * @returns {JSX.Element}
+ */
 function SummaryTransaction(){
     const dispatch = useDispatch()
     return(
         <>
-         <h2 className="sr-only">Accounts</h2>
             <section className="account">
                 <HeaderChecking/>
                 <div className="account-content-wrapper cta">

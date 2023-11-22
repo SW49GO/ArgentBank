@@ -1,6 +1,10 @@
 import '../styles/main.css'
 import Header from '../components/Header'
 
+/**
+ * Function component to display home page
+ * @returns {JSX.Element}
+ */
 function Home(){
 
     return(

@@ -3,17 +3,23 @@ import { useSelector } from 'react-redux'
 import { selectChecking, selectCredit, selectSaving } from '../features/selectors'
 import { useState } from 'react'
 
+/**
+ * Function component to display detail of account selected
+ * @returns {JSX.Element}
+ */
 function DetailTransaction(){
     const saving = useSelector(selectSaving)
     const checking = useSelector(selectChecking)
     const creditCard = useSelector(selectCredit)
 
+    // Formatting the date display
     function formatDate(inputDate) {
         const options = { month: 'long', day: 'numeric', year: 'numeric' }
         const formattedDate = new Date(inputDate).toLocaleDateString('en-US', options)
         return formattedDate.replace(/\d+/, (day) => `${day}th`)
       }
 
+    // State to identify opening information
     const [openTransactionId, setOpenTransactionId] = useState(null)
     let transactions = [];
 
@@ -35,7 +41,6 @@ function DetailTransaction(){
 
     return (
         <>
-        <h2 className="sr-only">Transactions</h2>
         <section className="account account-table">
             <table>
                 <thead>

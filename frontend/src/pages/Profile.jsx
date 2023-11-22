@@ -33,6 +33,7 @@ function Profile(){
     const isCredit = useSelector(selectCredit)
     const authUserOk = useSelector(selectAuth)
 
+    // Request using Thunk middleware to authenticate the user
     const { data, error, isLoading } = useQuery('authUser', async () => {
         const response = await dispatch(authUser())
         if (response.payload === false) {

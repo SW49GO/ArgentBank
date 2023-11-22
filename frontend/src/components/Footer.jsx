@@ -1,5 +1,8 @@
 import '../styles/main.css'
-
+/**
+ * Function component to display the footer
+ * @returns {JSX.Element}
+ */
 function Footer(){
     return(<>
         <footer className="footer">

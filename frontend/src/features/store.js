@@ -1,5 +1,6 @@
 import { createSlice, configureStore} from '@reduxjs/toolkit'
 
+// slice for state user datas
 const userDatasSlice = createSlice({
     name : 'userDatas',
     initialState:{
@@ -31,6 +32,7 @@ const userDatasSlice = createSlice({
     }
 })
 
+// slice for state display components
 const isVisibleComponent = createSlice({
     name: 'isVisible',
     initialState:{
@@ -64,9 +66,12 @@ const isVisibleComponent = createSlice({
     }
   })
 
+// export all actions from each slice
 export const {setInfosUser, setUserConfigConnect, setIsAuthUser} = userDatasSlice.actions
 export const {setEditNameVisible, setSummaryVisible, setChecking, setSaving, setCredit, setAllClosed} = isVisibleComponent.actions
 
+
+// store configuration
 export const store = configureStore({
     reducer : {
         userDatasSlice : userDatasSlice.reducer,
