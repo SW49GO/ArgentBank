@@ -2,17 +2,18 @@ import { selectFirstname, selectEditName, selectLastname, selectSummary, selectC
 import HeaderCreditCard from '../components/headers/HeaderCreditCard'
 import SummaryTransaction from '../components/SummaryTransaction'
 import HeaderChecking from '../components/headers/HeaderChecking'
+import DetailTransaction from '../components/DetailTransaction'
 import HeaderSaving from '../components/headers/HeaderSaving'
 import { useDispatch, useSelector } from 'react-redux'
 import { setEditNameVisible } from '../features/store'
-import DetailTransaction from '../components/DetailTransaction'
+import { authUser } from '../middlewares/authUser'
+import { setIsAuthUser } from '../features/store'
+import { useNavigate } from 'react-router-dom'
 import EditName from '../components/EditName'
 import Header from '../components/Header'
-import '../styles/main.css'
 import { useQuery } from 'react-query'
-import { authUser } from '../middlewares/authUser'
-import { useNavigate } from 'react-router-dom'
-import { setIsAuthUser } from '../features/store'
+import Error from '../pages/Error'
+import '../styles/main.css'
 
 
 
@@ -36,14 +37,23 @@ function Profile(){
 
     const {data, error, isLoading } = useQuery('authUser', async () => {
         const response =  await dispatch(authUser())
-        console.log('responseQUERY:', response.type)
+        if (response.payload === false) {
+            dispatch(setIsAuthUser(false))
+            navigate('/login')
+        }
+        return response.payload
   })
 
-if(data){
-    console.log(data)
-}
+  if (isLoading) {
+    return <div>Données en cours de chargement...</div>
+  }
+  if(data && data==='401'){
+    return ( <>
+        <Error message="unauthorized"/>
+  </>)
+  }
 
-    if(authUserOk){
+  if(error=== null && authUserOk){
         return (
             <>
             <Header/>
@@ -63,6 +73,10 @@ if(data){
             </main>
             </>
         )
-    }
+    }else if(data && data==="Failed to fetch"){
+    return ( <>
+                  <Error message="networkFailed"/>
+            </>)
+}
 }
 export default Profile
