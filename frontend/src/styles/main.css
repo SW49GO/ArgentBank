@@ -61,7 +61,9 @@ th,td{
 .main {
   flex: 1;
 }
-
+.fa-user-circle{
+  padding: 0.3rem;
+}
 .bg-dark {
   background-color: #12002b;
 }

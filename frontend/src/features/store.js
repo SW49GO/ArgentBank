@@ -1,4 +1,12 @@
 import { createSlice, configureStore} from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+// Configuration telling Redux Persist to store Redux store data under the 'root' key in the specified web storage (default localStorage)
+const persistConfig = {
+  key: 'root',
+  storage
+}
 
 // slice for state user datas
 const userDatasSlice = createSlice({
@@ -66,7 +74,10 @@ const isVisibleComponent = createSlice({
     }
   })
 
-// export all actions from each slice
+// Definition of the slice that must persist
+const persistedUserDatasSlice = persistReducer(persistConfig, userDatasSlice.reducer)
+
+// Export all actions from each slice
 export const {setInfosUser, setUserConfigConnect, setIsAuthUser} = userDatasSlice.actions
 export const {setEditNameVisible, setSummaryVisible, setChecking, setSaving, setCredit, setAllClosed} = isVisibleComponent.actions
 
@@ -74,7 +85,9 @@ export const {setEditNameVisible, setSummaryVisible, setChecking, setSaving, set
 // store configuration
 export const store = configureStore({
     reducer : {
-        userDatasSlice : userDatasSlice.reducer,
-        isVisibleComponent :isVisibleComponent.reducer
+      userDatasSlice : persistedUserDatasSlice,
+      isVisibleComponent :isVisibleComponent.reducer
     }
 })
+// persist store
+export const persistor = persistStore(store)
