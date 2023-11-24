@@ -2,6 +2,7 @@ import { accounts } from '../dataMocked/account'
 import { useSelector } from 'react-redux'
 import { selectChecking, selectCredit, selectSaving } from '../features/selectors'
 import { useState } from 'react'
+import React from 'react'
 
 /**
  * Function component to display detail of account selected
@@ -53,8 +54,8 @@ function DetailTransaction(){
                 </thead>
                 <tbody>
                     {transactions.map((transaction) => (
-                    <>
-                        <tr key={transaction.id}>
+                    <React.Fragment key={`fragment-${transaction.id}`}>
+                        <tr>
                             <td>
                                 <i
                                 className={`chevron fa fa-angle-${openTransactionId === transaction.id ? 'up' : 'down'}`}
@@ -67,37 +68,37 @@ function DetailTransaction(){
                             <td>${transaction.balance}</td>
                         </tr>
                         {openTransactionId === transaction.id && (
-                        <tr className="demo-transaction">
-                            <td colSpan="4">
-                                <p>Transaction Type:Electronic</p>
-                                <form>
-                                    <div>
-                                        <label htmlFor={`editCategory-${transaction.id}`}>Category:</label>
-                                        <input
-                                        type="text"
-                                        id={`editCategory-${transaction.id}`}
-                                        name="category"
-                                        required
-                                        value={transaction.category}
-                                        />
-                                        <i className="fa fa-pencil"></i>
-                                    </div>
-                                    <div>
-                                        <label htmlFor={`editNotes-${transaction.id}`}>Notes:</label>
-                                        <input
-                                        type="text"
-                                        id={`editNotes-${transaction.id}`}
-                                        name="notes"
-                                        required
-                                        value={transaction.notes}
-                                        />
-                                        <i className="fa fa-pencil"></i>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
+                            <tr className="demo-transaction">
+                                <td colSpan="4">
+                                    <p>Transaction Type:Electronic</p>
+                                    <form>
+                                        <div>
+                                            <label htmlFor={`editCategory-${transaction.id}`}>Category:</label>
+                                            <input
+                                            type="text"
+                                            id={`editCategory-${transaction.id}`}
+                                            name="category"
+                                            required
+                                            defaultValue={transaction.category}
+                                            />
+                                            <i className="fa fa-pencil"></i>
+                                        </div>
+                                        <div>
+                                            <label htmlFor={`editNotes-${transaction.id}`}>Notes:</label>
+                                            <input
+                                            type="text"
+                                            id={`editNotes-${transaction.id}`}
+                                            name="notes"
+                                            required
+                                            defaultValue={transaction.notes}
+                                            />
+                                            <i className="fa fa-pencil"></i>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
                         )}
-                    </>
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>

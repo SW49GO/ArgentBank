@@ -87,7 +87,14 @@ export const store = configureStore({
     reducer : {
       userDatasSlice : persistedUserDatasSlice,
       isVisibleComponent :isVisibleComponent.reducer
-    }
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        // Excludes the "persist/PERSIST" action from the serialization check, action is special and managed internally by Redux Persist during the persisted data recovery process
+        serializableCheck: {
+          ignoredActions: ['persist/PERSIST'],
+        },
+      })
 })
 // persist store
 export const persistor = persistStore(store)

@@ -25,7 +25,6 @@ export async function fetchData(data) {
           throw new Error('400')
         }
     }catch(error){
-      //  console.error('Error:', error)
        return Promise.reject(error)
     }
 }
@@ -57,7 +56,6 @@ export async function fetchUserData(data){
           throw new Error('401')
         }
       } catch (error) {
-        // console.error('Error:', error)
         return Promise.reject(error)
       }
   }
@@ -72,12 +70,10 @@ export async function fetchUserData(data){
     if (!data) {
       return 'Missing data'
     }
-    console.log('dataFETCHUSER:', data)
     const token = data.token
     const firstName = data.firstname
     const lastName = data.lastname
       try {
-        console.log('API-LANCE')
         const response = await fetch('http://localhost:3001/api/v1/user/profile', {
           method: 'PUT',
           headers: {
@@ -89,12 +85,10 @@ export async function fetchUserData(data){
   
         if(response.ok){
           const data = await response.json()
-          console.log('dataASAVE:', data)
           return data
         }
         return Promise.reject('HTTP error')
       } catch (error) {
-        // console.error('Error:', error)
         return Promise.reject(error)
       }
   }
