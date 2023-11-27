@@ -24,11 +24,12 @@ function Profile(){
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+   
+    const isSummaryVisible = useSelector(selectSummary)
+    const isEditVisible = useSelector(selectEditName)
+    const isChecking = useSelector(selectChecking)
     const firstname= useSelector(selectFirstname)
     const lastname = useSelector(selectLastname)
-    const isEditVisible = useSelector(selectEditName)
-    const isSummaryVisible = useSelector(selectSummary)
-    const isChecking = useSelector(selectChecking)
     const isSaving = useSelector(selectSaving)
     const isCredit = useSelector(selectCredit)
     const authUserOk = useSelector(selectAuth)

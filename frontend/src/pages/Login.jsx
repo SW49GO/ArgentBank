@@ -21,13 +21,16 @@ function Login(){
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const rememberUser = localStorage.getItem('rememberMe')
+
     // Creation of an instance of the query client, interface which allows you to interact with the cache system
     const queryClient = useQueryClient()
     // State to validate the form and allow the request to be sent
     const [isFormSubmit, setFormSubmit] = useState(false)
-    const email = useSelector(selectEmail)
+    
+    const rememberUser = localStorage.getItem('rememberMe')
     const password = useSelector(selectPassword)
+    const email = useSelector(selectEmail)
+
 
     // isError : boolean that indicates whether an error occurred while retrieving data
     // error : object that contains details about the error that occurred
@@ -50,7 +53,6 @@ function Login(){
     function OnSubmit(data){
         const {username, password, rememberMe} = data
         const verifyData = useValidationForm({email:username, password:password})
-        console.log('verifyData:', verifyData)
         if(rememberMe){
              localStorage.setItem('rememberMe',true)
              localStorage.setItem('username',username)
