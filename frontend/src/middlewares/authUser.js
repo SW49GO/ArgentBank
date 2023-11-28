@@ -23,6 +23,7 @@ export const authUser = createAsyncThunk('authUser', async (_, { dispatch, getSt
         return false
       }
     }
+    return response
   } catch (error) {
     dispatch(setIsAuthUser(false))
     return error.message
